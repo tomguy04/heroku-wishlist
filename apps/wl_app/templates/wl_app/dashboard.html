@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+		{% load static %}
+		<link rel="stylesheet" type="text/css" href="{% static 'wl_app/css/pages.css' %}" media="screen" title="no title"  charset="utf-8">
+        <title>Wishlist</title>
+    </head>
+<body>
+	<div class = 'container'>
+		
+		<nav class="navbar navbar-expand-sm bg-primary navbar-dark">
+			<ul class="navbar-nav mr-auto">
+				<li class='nav-item'><h3>Welcome {{user}} </h3></li>
+				<li class='nav-item'>
+					<button type="button" class="btn btn-primary active role="button""><a href="/wish_items/create">Add wish</a></button>
+				</li>
+				<li class='nav-item'>
+					<button type="button" align='right' class="btn btn-basic  role="button""><a href="/logout">Logout</a></button>
+				</li>
+			</ul>
+
+		</nav>
+
+		<!-- <div class = navbar>
+			Welcome {{user}} 
+			<button type="button" class="btn btn-primary float-right role="button""><a href="/logout">Logout</a></button>
+			<button type="button" class="btn btn-primary float-right role="button""><a href="/wish_items/create">add wish</a></button>
+		</div> -->
+		<!-- <br><h2>Your Wishes:</h2> -->
+		<div class='jumbotron'>
+			<h2>Your Wishes:</h2>
+			<table class="table table-striped table-hover ">
+				<!-- table-responsive if more columns are added -->
+				<thead class = "thead-medium" >
+					<tr>
+						<th>Item</th>
+						<th>Creator</th>
+						<th>Date Created</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+
+			<!-- in ItemList user-User  -->
+				<tbody>
+					{%for data in my_wishes%} 
+					<tr>
+						<td><a href="/wishes/item/{{data.id}}">{{data.name}}</a></td>
+						<td>{{data.user.name}}</td>
+						<td>{{data.created_at|date:" M d Y"}}</td>
+						<td>					
+							{% if request.session.id != data.user.id %}
+								<a href="/wishes/remove/{{data.id}}">Remove</a>
+							{% else %}
+								<a href="/wishes/delete/{{data.id}}">Delete</a>
+							{% endif %}
+						</td>
+					</tr>
+					{%endfor%}
+
+					{%for data in wishes_joined%} 
+					<tr>
+						<td><a href="/wishes/item/{{data.item.id}}">{{data.item.name}}</a></td>
+						<td>{{data.item.user.name}}</td>
+						<td>{{data.item.created_at|date:" M d Y"}}</td>
+						<td>
+							{% if request.session.id != data.item.user_id %}
+								<a href="/wishes/remove/{{data.item.id}}/{{request.session.id}}">Remove</a>
+							{% endif %}
+						</td>
+					</tr>
+					{%endfor%}
+				</tbody>
+			</table>
+		</div>
+
+		<br><br>
+		<div class = 'jumbotron other-wishes'>
+			<h2>Other User wishes:</h2>
+			<table class="table table-striped table-hover  table-light">
+				<!-- table-responsive if more columns are added -->
+				<thead class = "thead-medium" >
+					<tr>
+						<th>Item</th>
+						<th>Creator</th>
+						<th>Date Created</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					{%for data in other_wishes%}
+					<tr> 
+						<td><a href="/wishes/item/{{data.id}}">{{data.name}}</a></td>
+						<td>{{data.user.name}}</td>  
+						<td>{{data.created_at|date:" M d Y"}}</td>	
+						<td><a href="/joinwish/{{data.id}}/{{request.session.id}}">Add to Wishlist</a></td>
+					</tr>
+					{%endfor%}
+				</tbody>
+			</table>
+		</div>
+
+	</div>
+
+	
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+		{% load static %}
+		<link rel="stylesheet" type="text/css" href="{% static 'wl_app/css/style.css' %}" media="screen" title="no title"  charset="utf-8">
+        <title>Wishlist</title>
+    </head>
+<body>
+    <div class='container'>
+        <div class='jumbotron'>
+            {{request.session.id}}
+            {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                    <li>
+                        {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important: {% endif %}
+                        {{ message }}
+                    </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            Login
+            <form action='/login' method='post'>
+                {% csrf_token %}
+                <div class = 'form group'>
+                    <label for='username' >User Name</label>
+                    <input type='text' name='username' class='form-control' placeholder="User Name" >
+                </div>
+                <div class = 'form group'>
+                    <label for='password' >Password</label>
+                    <input type='password' name='password' class='form-control' placeholder="Password" >
+                </div>
+                <input type="submit" name="">
+            </form>
+            
+            <hr>
+
+            Register
+            <form action='/doregister' method='post'>
+                {% csrf_token %}
+                <div class = 'form group'>
+                    <label for='name' >Full Name</label>
+                    <input type='text' name='name' class='form-control' placeholder="Full Name" >
+                </div>
+                <div class = 'form group'>
+                    <label for='username' >User Name</label>
+                    <input type='text' name='username' class='form-control' placeholder="User Name" >
+                </div>
+                <div class = 'form group'>
+                    <label for='password' >Password</label>
+                    <input type='text' name='password' class='form-control' placeholder="Password" >
+                </div>
+                <div class = 'form group'>
+                    <label for='confpassword' >Confirm Password</label>
+                    <input type='text' name='confpassword' class='form-control' placeholder="Password" >
+                </div>
+                <div class = 'form group'>
+                    <label for='datehired' >Birthday</label>
+                    <input type='date' name='datehired' class='form-control' placeholder="Birthday" >
+                </div>
+                <input type='submit' value='Submit'>
+            </form>
+        </div>
+    </div>
+</body>
+
+<!-- <p><input type='text' name='name'></p>
+<p><input type='text' name='username'></p>
+<p><input type='text' name='password'></p>
+<p><input type='text' name='confpassword'></p>
+<p><input type='date' name='datehired'></p> -->

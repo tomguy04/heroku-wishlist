@@ -1,0 +1,55 @@
+.btn{
+    margin: 5px;
+    color:white;
+}
+
+.btn a{
+    color:white;
+    text-decoration: none;
+}
+
+.btn-success{
+    color:white;
+}
+
+/* .navbar-nav a{
+    margin-left:20px;
+} */
+
+.navbar h3{
+    margin-right:10px;
+    margin-top:5px;
+}
+
+.right-side-button{
+    float:right;
+  }
+
+.navbar-header{
+    width:100%;
+    padding:0px;
+}
+
+.second-button{
+    float:right;
+    /* margin-left: 100px; */
+
+}
+
+td{
+    width:25%
+}
+
+.jumbotron{
+    padding:10px 20px 10px 20px;
+    margin-bottom: 0px;
+}
+
+.other-wishes{
+    background-color:darkgray;
+    
+}
+
+.other-table-hover{
+    background-color:white;
+}
